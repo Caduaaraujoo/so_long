@@ -1,58 +1,80 @@
-HEADERS_PATH = ./includes/
-SRCS_PATH = ./srcs/
-OBJS_PATH = ./objs/
-LIBS_PATH = ./libs/
-BINS_PATH = ./bin/
-MLX42_DIR = MLX42
+
+# >=> >=> >=> >=> INITIAL CONFIG <=< <=< <=< <=<
+CC = cc
+FLAGS = -Wall -Wextra -Werror
+NAME = so_long
+
+# >=> >=> >=> CONFIG PATH AND FILES <=< <=< <=<
+SRCS_PATH = ./srcs
+LIBS = ./libs
+HEADERS_PATH = ./includes
+HEADERS_FILES = so_long.h
+SRCS_FILES = main.c
+OBJS_PATH = ./objs
+INCLUDES = $(addprefix $(HEADERS_PATH)/, $(HEADERS_FILES))
+SOURCES = $(addprefix $(SRCS_PATH)/, $(SRCS_FILES))
+OBJS = $(patsubst %.c, %.o, $(SRCS_FILES))
+BUILDS = $(addprefix $(OBJS_PATH)/, $(OBJS))
+
+# >=> >=> >=> >=> >=> LIBFT <=< <=< <=< <=< <=<
+LIBFT_NAME = libft.a
+LIBFT_PATH = $(LIBS)/libft
+LIBFT_HEADER_PATH = $(HEADERS_PATH)
+LIBFT_LIB = $(LIBS)/$(LIBFT_NAME)
+LIBFT_CC = -I $(LIBFT_HEADER_PATH)
+
+# >=> >=> >=> >=> >=> MLX42 <=< <=< <=< <=< <=<
 MLX42_REPO = https://github.com/codam-coding-college/MLX42.git
+MLX42_LIB_NAME = libmlx42.a
+MLX42_PATH = $(LIBS)/MLX42
+MLX42_HEADER_PATH = $(MLX42_PATH)/include
+MLX42_BUILD_PATH = $(MLX42_PATH)/build
+MLX42_LIB = $(MLX42_BUILD_PATH)/$(MLX42_LIB_NAME)
+MLX42_LIBS = -lmlx42 -ldl -lglfw -pthread -lm
+MLX42_CC = -I $(MLX42_HEADER_PATH) -L $(MLX42_BUILD_PATH) $(MLX42_LIBS)
 
-CC = gcc
-FLAGS = -Wall -Wextra -Werror -I $(HEADERS_PATH)
+# >=> >=> >=> >=> >=> COLORS <=< <=< <=< <=< <=<
+BLUE				=	\033[0;	34m
+MAGENTA				=	\033[0;35m
+GREEN				=	\033[0;32m
+DEFAULT 			=	\033[0:0m
 
-RM = rm -rf
-MKDIR = mkdir -p
+# >=> >=> >=> >=> >=> RULES <=< <=< <=< <=< <=<
+.PHONY: all bonus clean fclean re
 
-NAME = $(BINS_PATH)so_long
-LIBFT_A = $(LIBS_PATH)libft.a
-SRC_FILES = main.c
-SOURCES = $(addprefix $(SRCS_PATH), $(SRC_FILES))
-OBJ_FILES = $(patsubst %.c, %.o, $(SRC_FILES))
-OBJECTS = $(addprefix $(OBJS_PATH), $(OBJ_FILES))
+all: $(NAME)
 
-all: make_dir $(NAME)
+$(NAME): $(MLX42_LIB) $(LIBFT_LIB) $(BUILDS) $(INCLUDES)
+	@ $(CC) -o $(NAME) $(BUILDS) -I $(HEADERS_PATH) \
+	$(MLX42_CC) $(LIBFT_CC) $(FLAGS)
+	@ printf "$(GREEN) $(NAME) $(DEFAULT) successfully generated\n"
 
-$(LIBFT_A):
-	@make -C $(LIBS_PATH)libft
-
-make_dir:
-	@$(MKDIR) $(BINS_PATH)
-
-$(NAME): $(LIBFT_A) $(OBJECTS) $(MLX42_DIR)
-	@$(CC) $(FLAGS) -o $(NAME) $(OBJECTS) -L $(LIBS_PATH) -lft
-
-$(OBJS_PATH)%.o : $(SRCS_PATH)%.c
-	@$(MKDIR) $(OBJS_PATH)
-	@$(CC) $(FLAGS) -c $< -o $@
-
-$(MLX42_DIR):
-	@if [ ! -d $(LIBS_PATH)$(MLX42_DIR) ]; then \
-		echo "Cloning MLX42 repository..."; \
-		git clone $(MLX42_REPO) $(LIBS_PATH)$(MLX42_DIR); \
-		cd $(LIBS_PATH)$(MLX42_DIR) && sed -i "s/(VERSION 3.18.0)/(VERSION 3.16.0)/" CMakeLists.txt; \
-	else \
-		echo "$(MLX42_DIR) already exists. Skipping cloning."; \
-	fi
+$(OBJS_PATH)/%.o: $(SRCS_PATH)/%.c $(INCLUDES)
+	@ printf "$(MAGENTA)$< $(BLUE)->$(GREEN) $@$(DEFAULT)\n"
+	@ $(CC) -c $<                                            \
+	-I $(HEADERS_PATH)                                       \
+	-I $(MLX42_HEADER_PATH)                                  \
+	-I $(LIBFT_HEADER_PATH)                                  \
+	-o $@ $(FLAGS)
 
 clean:
-	@$(RM) $(OBJECTS)
-	@cd $(LIBS_PATH)libft/ && $(MAKE) $@
+	@ make -s -C $(LIBFT_PATH) clean
 
-
-fclean: clean
-	@$(RM) $(NAME)
-	@cd $(LIBS_PATH)libft/ && $(MAKE) $@
-
+fclean:
+	@ make -s -C $(LIBFT_PATH) fclean
+	@ rm -rf $(NAME)
 
 re: fclean all
 
-.PHONY: all run clean fclean re make_dir
+$(LIBFT_LIB): $(LIBFT_PATH)
+	@ make -s -C $(LIBFT_PATH)
+
+$(MLX42_LIB): $(MLX42_PATH)
+	@ cd $(MLX42_PATH) &&       \
+	  cmake -B build &&         \
+	  cmake --build build -j4
+
+$(MLX42_PATH):
+	@ git clone $(MLX42_REPO) $(MLX42_PATH)
+	@ cd $@ &&                                 \
+	sed -i "s/(VERSION 3.18.0)/(VERSION 3.16.0)/" CMakeLists.txt

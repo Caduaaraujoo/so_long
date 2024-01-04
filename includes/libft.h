@@ -6,7 +6,7 @@
 /*   By: caredua3 <caredua3@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/15 18:14:36 by caredua3          #+#    #+#             */
-/*   Updated: 2024/01/03 18:33:53 by caredua3         ###   ########.fr       */
+/*   Updated: 2024/01/04 19:01:07 by caredua3         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <stdarg.h>
-
 #ifndef BUFFER_SIZE
 #define BUFFER_SIZE 80
 #endif
