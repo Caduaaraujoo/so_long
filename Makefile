@@ -13,8 +13,8 @@ SRCS_FILES = main.c
 OBJS_PATH = ./objs
 INCLUDES = $(addprefix $(HEADERS_PATH)/, $(HEADERS_FILES))
 SOURCES = $(addprefix $(SRCS_PATH)/, $(SRCS_FILES))
-OBJS = $(patsubst %.c, %.o, $(SRCS_FILES))
-BUILDS = $(addprefix $(OBJS_PATH)/, $(OBJS))
+OBJS_FILES = $(patsubst %.c, %.o, $(SRCS_FILES))
+OBJS = $(addprefix $(OBJS_PATH)/, $(OBJS_FILES))
 
 # >=> >=> >=> >=> >=> LIBFT <=< <=< <=< <=< <=<
 LIBFT_NAME = libft.a
@@ -44,8 +44,8 @@ DEFAULT 			=	\033[0:0m
 
 all: $(NAME)
 
-$(NAME): $(MLX42_LIB) $(LIBFT_LIB) $(BUILDS) $(INCLUDES)
-	@ $(CC) -o $(NAME) $(BUILDS) -I $(HEADERS_PATH) \
+$(NAME): $(MLX42_LIB) $(LIBFT_LIB) $(OBJS) $(INCLUDES)
+	@ $(CC) -o $(NAME) $(OBJS) -I $(HEADERS_PATH) \
 	$(MLX42_CC) $(LIBFT_CC) $(FLAGS)
 	@ printf "$(GREEN) $(NAME) $(DEFAULT) successfully generated\n"
 
@@ -59,6 +59,7 @@ $(OBJS_PATH)/%.o: $(SRCS_PATH)/%.c $(INCLUDES)
 
 clean:
 	@ make -s -C $(LIBFT_PATH) clean
+	@ rm -rf $(OBJS)
 
 fclean:
 	@ make -s -C $(LIBFT_PATH) fclean
