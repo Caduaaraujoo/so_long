@@ -61,7 +61,7 @@ clean:
 	@ make -s -C $(LIBFT_PATH) clean
 	@ rm -rf $(OBJS)
 
-fclean:
+fclean: clean
 	@ make -s -C $(LIBFT_PATH) fclean
 	@ rm -rf $(NAME)
 
