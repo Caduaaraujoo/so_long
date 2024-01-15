@@ -6,28 +6,30 @@
 /*   By: caredua3 <caredua3@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/15 18:14:36 by caredua3          #+#    #+#             */
-/*   Updated: 2024/01/04 19:01:07 by caredua3         ###   ########.fr       */
+/*   Updated: 2024/01/15 14:21:07 by caredua3         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
-#define LIBFT_H
-#include <stdlib.h>
-#include <unistd.h>
-#include <stdarg.h>
+# define LIBFT_H
+
+# include <stdlib.h>
+# include <unistd.h>
+# include <stdarg.h>
+# include <fcntl.h>
+
 #ifndef BUFFER_SIZE
-#define BUFFER_SIZE 80
+# define BUFFER_SIZE 80
 #endif
 
-typedef struct s_list_gnl
+typedef struct s_list
 {
-	char content;
-	struct s_list_gnl *next;
-} t_list_gnl;
+	void *content;
+	struct s_list *next;
+} t_list;
+
 char *get_next_line(int fd);
-int ft_lstsize_or_size_newline(t_list_gnl *lst);
-void ft_lstclear_gnl(t_list_gnl **lst);
-t_list_gnl *ft_lstnew_gnl(char character);
+t_list	*ft_lstnew_gnl(void *content);
 
 union u_return_value
 {
@@ -78,11 +80,7 @@ void ft_putnbr_fd(int n, int fd);
 char *ft_itoa(int n);
 char *ft_strmapi(char const *s, char (*f)(unsigned int, char));
 void ft_striteri(char *s, void (*f)(unsigned int, char *));
-typedef struct s_list
-{
-	void *content;
-	struct s_list *next;
-} t_list;
+
 t_list *ft_lstnew(void *content);
 void ft_lstadd_front(t_list **lst, t_list *new);
 int ft_lstsize(t_list *lst);

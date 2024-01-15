@@ -1,7 +1,7 @@
 
 # >=> >=> >=> >=> INITIAL CONFIG <=< <=< <=< <=<
 CC = cc
-FLAGS = -Wall -Wextra -Werror
+FLAGS = -Wall -Wextra -Werror -g3
 NAME = so_long
 
 # >=> >=> >=> CONFIG PATH AND FILES <=< <=< <=<
@@ -9,7 +9,8 @@ SRCS_PATH = ./srcs
 LIBS = ./libs
 HEADERS_PATH = ./includes
 HEADERS_FILES = so_long.h
-SRCS_FILES = main.c
+SRCS_FILES = main.c init_map.c start_game.c
+
 OBJS_PATH = ./objs
 INCLUDES = $(addprefix $(HEADERS_PATH)/, $(HEADERS_FILES))
 SOURCES = $(addprefix $(SRCS_PATH)/, $(SRCS_FILES))
@@ -19,9 +20,9 @@ OBJS = $(addprefix $(OBJS_PATH)/, $(OBJS_FILES))
 # >=> >=> >=> >=> >=> LIBFT <=< <=< <=< <=< <=<
 LIBFT_NAME = libft.a
 LIBFT_PATH = $(LIBS)/libft
-LIBFT_HEADER_PATH = $(HEADERS_PATH)
-LIBFT_LIB = $(LIBS)/$(LIBFT_NAME)
-LIBFT_CC = -I $(LIBFT_HEADER_PATH)
+LIBFT_HEADER_PATH = $(LIBFT_PATH)/includes
+LIBFT_LIB = $(LIBFT_PATH)/$(LIBFT_NAME)
+LIBFT_CC = -I $(LIBFT_HEADER_PATH) -L$(LIBFT_PATH) -lft
 
 # >=> >=> >=> >=> >=> MLX42 <=< <=< <=< <=< <=<
 MLX42_REPO = https://github.com/codam-coding-college/MLX42.git
@@ -40,13 +41,13 @@ GREEN				=	\033[0;32m
 DEFAULT 			=	\033[0:0m
 
 # >=> >=> >=> >=> >=> RULES <=< <=< <=< <=< <=<
-.PHONY: all bonus clean fclean re
+.PHONY: all bonus clean fclean re clean_mlx
 
 all: $(NAME)
 
 $(NAME): $(MLX42_LIB) $(LIBFT_LIB) $(OBJS) $(INCLUDES)
 	@ $(CC) -o $(NAME) $(OBJS) -I $(HEADERS_PATH) \
-	$(MLX42_CC) $(LIBFT_CC) $(FLAGS)
+	$(MLX42_CC) $(LIBFT_CC) $(FLAGS) -L$(LIBFT_PATH) -lft
 	@ printf "$(GREEN) $(NAME) $(DEFAULT) successfully generated\n"
 
 $(OBJS_PATH)/%.o: $(SRCS_PATH)/%.c $(INCLUDES)
@@ -56,12 +57,11 @@ $(OBJS_PATH)/%.o: $(SRCS_PATH)/%.c $(INCLUDES)
 	-I $(MLX42_HEADER_PATH)                                  \
 	-I $(LIBFT_HEADER_PATH)                                  \
 	-o $@ $(FLAGS)
-
 clean:
 	@ make -s -C $(LIBFT_PATH) clean
 	@ rm -rf $(OBJS)
 
-fclean: clean
+fclean: clean clean_mlx
 	@ make -s -C $(LIBFT_PATH) fclean
 	@ rm -rf $(NAME)
 
@@ -79,3 +79,7 @@ $(MLX42_PATH):
 	@ git clone $(MLX42_REPO) $(MLX42_PATH)
 	@ cd $@ &&                                 \
 	sed -i "s/(VERSION 3.18.0)/(VERSION 3.16.0)/" CMakeLists.txt
+
+# >=> >=> >=> >=> >=> clean MLX42 <=< <=< <=< <=< <=<
+clean_mlx:
+	@ rm -rf $(MLX42_PATH)

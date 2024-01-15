@@ -1,24 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_lstnew_gnl.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: caredua3 <caredua3@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/03 18:44:47 by caredua3          #+#    #+#             */
-/*   Updated: 2024/01/10 20:16:03 by caredua3         ###   ########.fr       */
+/*   Created: 2024/01/15 14:20:11 by caredua3          #+#    #+#             */
+/*   Updated: 2024/01/15 14:21:29 by caredua3         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// Written by Bruh
+#include "libft.h"
 
-#include "so_long.h"
-
-int	main(int argc, char *argv[])
+t_list	*ft_lstnew_gnl(void *content)
 {
-	if (argc > 20)
-		ft_printf(" Error\n Arguments incorrect");
-	else
-		start_game(argv[1]);
-	return (0);
+	t_list	*new_list;
+
+	new_list = (t_list *)malloc(sizeof(t_list));
+	if (new_list == NULL)
+		return (NULL);
+	new_list->content = malloc(sizeof(char));
+	if (new_list->content == NULL)
+	{
+		free(new_list);
+		return (NULL);
+	}
+	*(char *)new_list->content = *(char *)content;
+	new_list->next = NULL;
+	return (new_list);
 }

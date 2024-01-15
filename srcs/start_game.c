@@ -1,24 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   start_game.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: caredua3 <caredua3@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/03 18:44:47 by caredua3          #+#    #+#             */
-/*   Updated: 2024/01/10 20:16:03 by caredua3         ###   ########.fr       */
+/*   Created: 2024/01/10 11:25:40 by caredua3          #+#    #+#             */
+/*   Updated: 2024/01/15 14:50:56 by caredua3         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// Written by Bruh
-
 #include "so_long.h"
 
-int	main(int argc, char *argv[])
+void	start_game(char *map)
 {
-	if (argc > 20)
-		ft_printf(" Error\n Arguments incorrect");
-	else
-		start_game(argv[1]);
-	return (0);
+	int fd;
+	char *line;
+	char *test;
+
+	test = map;
+
+	// Abra um arquivo para leitura (substitua "file.txt" pelo nome do seu arquivo)
+	fd = open(map, O_RDONLY);
+
+	if (fd == -1)
+		ft_printf("Error opening file");
+
+	// Leia as linhas usando get_next_line
+	while ((line = get_next_line(fd)) != NULL)
+	{
+		ft_printf("Line read: %s", line);
+		free(line);
+	}
+
+	// Feche o arquivo após a leitura
+	close(fd);
 }
