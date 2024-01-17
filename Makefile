@@ -3,13 +3,14 @@
 CC = cc
 FLAGS = -Wall -Wextra -Werror -g3
 NAME = so_long
+MKDIR = mkdir -p
 
 # >=> >=> >=> CONFIG PATH AND FILES <=< <=< <=<
 SRCS_PATH = ./srcs
 LIBS = ./libs
 HEADERS_PATH = ./includes
 HEADERS_FILES = so_long.h
-SRCS_FILES = main.c init_map.c start_game.c
+SRCS_FILES = main.c init_map.c start_matrix_validation.c message_sucess_or_error.c validate_game.c
 
 OBJS_PATH = ./objs
 INCLUDES = $(addprefix $(HEADERS_PATH)/, $(HEADERS_FILES))
@@ -43,7 +44,10 @@ DEFAULT 			=	\033[0:0m
 # >=> >=> >=> >=> >=> RULES <=< <=< <=< <=< <=<
 .PHONY: all bonus clean fclean re clean_mlx
 
-all: $(NAME)
+all: prep $(NAME)
+
+prep:
+	@$(MKDIR) $(SRCS_PATH) $(OBJS_PATH)
 
 $(NAME): $(MLX42_LIB) $(LIBFT_LIB) $(OBJS) $(INCLUDES)
 	@ $(CC) -o $(NAME) $(OBJS) -I $(HEADERS_PATH) \
