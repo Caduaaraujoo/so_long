@@ -6,7 +6,7 @@
 /*   By: caredua3 <caredua3@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 11:25:40 by caredua3          #+#    #+#             */
-/*   Updated: 2024/01/17 13:50:02 by caredua3         ###   ########.fr       */
+/*   Updated: 2024/01/22 15:33:45 by caredua3         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ static void	check_size_columns_and_lines(char *map, struct s_matrix_validation
 		line = get_next_line(fd);
 		if (line == NULL)
 			break ;
+		line = ft_strtrim(line, "\n");
 		size_columns += (ft_strlen(line));
 		free(line);
 		number_of_lines++;
@@ -56,8 +57,8 @@ static void	matrix_memory_allocation(struct s_matrix_validation
 				(matrix_validation->columns / matrix_validation->lines),
 				sizeof(char));
 		if (!matrix_validation->data[index])
-			message_sucess_or_error("Error in memory allocation of\
- matrix columns", 2);
+			clean_matrix(matrix_validation, "Error in memory allocation of\
+ matrix columns", index + 1);
 		index++;
 	}
 }
@@ -79,6 +80,9 @@ static void	matrix_values_allocation(char *map,
 		line = get_next_line(fd);
 		if (line == NULL)
 			break ;
+		if (index == matrix_validation->lines -1 && ft_strchr(line, '\n'))
+			clean_matrix(matrix_validation,"inadequate line break", matrix_validation->lines);
+		line = ft_strtrim(line, "\n");
 		matrix_validation->data[index] = ft_strdup(line);
 		free(line);
 		index++;

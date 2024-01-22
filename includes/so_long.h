@@ -6,7 +6,7 @@
 /*   By: caredua3 <caredua3@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 18:21:27 by caredua3          #+#    #+#             */
-/*   Updated: 2024/01/17 13:54:38 by caredua3         ###   ########.fr       */
+/*   Updated: 2024/01/22 14:47:39 by caredua3         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,7 @@ void	start_matrix_validation(char *map,
 void	validate_game(struct s_matrix_validation *matrix_validation);
 void	message_sucess_or_error(char *message, int fd);
 int		init_map(void);
+void	clean_matrix(struct s_matrix_validation *matrix_validation,
+			char *message_error_memory, int size);
 
 #endif
