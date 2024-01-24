@@ -6,7 +6,7 @@
 /*   By: caredua3 <caredua3@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 11:25:40 by caredua3          #+#    #+#             */
-/*   Updated: 2024/01/22 15:33:45 by caredua3         ###   ########.fr       */
+/*   Updated: 2024/01/24 19:00:42 by caredua3         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,7 @@ static void	check_size_columns_and_lines(char *map, struct s_matrix_validation
 {
 	int		fd;
 	char	*line;
-	int		number_of_lines;
-	int		size_columns;
 
-	number_of_lines = 0;
-	size_columns = 0;
 	fd = open(map, O_RDONLY);
 	if (fd == -1)
 		message_sucess_or_error("Error opening the file function, which\
@@ -32,12 +28,12 @@ static void	check_size_columns_and_lines(char *map, struct s_matrix_validation
 		if (line == NULL)
 			break ;
 		line = ft_strtrim(line, "\n");
-		size_columns += (ft_strlen(line));
+		matrix_validation->columns = (ft_strlen(line));
 		free(line);
-		number_of_lines++;
+		matrix_validation->lines++;
 	}
-	matrix_validation->columns = size_columns / number_of_lines;
-	matrix_validation->lines = number_of_lines;
+	if (matrix_validation->lines == 0)
+		message_sucess_or_error("empty map", 2);
 }
 
 static void	matrix_memory_allocation(struct s_matrix_validation

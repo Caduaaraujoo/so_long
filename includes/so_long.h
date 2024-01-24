@@ -6,7 +6,7 @@
 /*   By: caredua3 <caredua3@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 18:21:27 by caredua3          #+#    #+#             */
-/*   Updated: 2024/01/22 14:47:39 by caredua3         ###   ########.fr       */
+/*   Updated: 2024/01/24 17:00:07 by caredua3         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,11 @@
 
 struct s_matrix_validation
 {
+	int		starting_position_x;
+	int		starting_position_y;
+	int		quantity_initial_position;
+	int		quantity_end_position;
+	int		number_of_collectibles;
 	int		columns;
 	int		lines;
 	char	**data;
