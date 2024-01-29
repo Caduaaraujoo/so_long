@@ -6,7 +6,7 @@
 /*   By: caredua3 <caredua3@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 10:36:26 by caredua3          #+#    #+#             */
-/*   Updated: 2024/01/17 12:01:14 by caredua3         ###   ########.fr       */
+/*   Updated: 2024/01/29 18:50:35 by caredua3         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ static void	sucess(char *message)
 	exit(0);
 }
 
-void	message_sucess_or_error(char *message, int fd)
+void	message_sucess_or_error(char *message, int status)
 {
-	if (fd == 2)
+	if (status == 2)
 		error(message);
 	else
 		sucess(message);
