@@ -6,7 +6,7 @@
 /*   By: caredua3 <caredua3@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 18:44:47 by caredua3          #+#    #+#             */
-/*   Updated: 2024/01/24 18:58:53 by caredua3         ###   ########.fr       */
+/*   Updated: 2024/01/29 16:07:33 by caredua3         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ int	main(int argc, char *argv[])
 		ft_printf("%s", matrix_validation.data[i]);
 		i++;
 	}
+	clean_matrix(&matrix_validation, "Sucess game", matrix_validation.lines);
 	// init_map();
 	return (0);
 }
