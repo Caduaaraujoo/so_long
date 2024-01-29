@@ -6,7 +6,7 @@
 /*   By: caredua3 <caredua3@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 18:44:47 by caredua3          #+#    #+#             */
-/*   Updated: 2024/01/29 16:07:33 by caredua3         ###   ########.fr       */
+/*   Updated: 2024/01/29 16:34:18 by caredua3         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,25 +24,25 @@ static void	validate_arguments(int argc, char *argv)
 
 int	main(int argc, char *argv[])
 {
-	struct s_matrix_validation	matrix_validation;
+	t_game	game_validation;
 
-	matrix_validation.number_of_collectibles = 0;
-	matrix_validation.quantity_end_position = 0;
-	matrix_validation.quantity_initial_position = 0;
-	matrix_validation.columns = 0;
-	matrix_validation.lines = 0;
+	game_validation.num_of_collect = 0;
+	game_validation.quant_end_pos = 0;
+	game_validation.quant_init_pos = 0;
+	game_validation.columns = 0;
+	game_validation.lines = 0;
 	validate_arguments(argc, argv[1]);
-	start_matrix_validation(argv[1], &matrix_validation);
-	validate_game(&matrix_validation);
-	if (matrix_validation.number_of_collectibles != 0 && matrix_validation.quantity_end_position != 0)
-		clean_matrix(&matrix_validation,"impossible game", matrix_validation.lines);
+	start_matrix_validation(argv[1], &game_validation);
+	validate_game(&game_validation);
+	if (game_validation.num_of_collect != 0 && game_validation.quant_end_pos != 0)
+		clean_matrix(&game_validation,"impossible game", game_validation.lines);
 	int i = 0;
-	while (i < matrix_validation.lines)
+	while (i < game_validation.lines)
 	{
-		ft_printf("%s", matrix_validation.data[i]);
+		ft_printf("%s", game_validation.data[i]);
 		i++;
 	}
-	clean_matrix(&matrix_validation, "Sucess game", matrix_validation.lines);
+	clean_matrix(&game_validation, "Sucess game", game_validation.lines);
 	// init_map();
 	return (0);
 }

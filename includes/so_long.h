@@ -6,7 +6,7 @@
 /*   By: caredua3 <caredua3@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 18:21:27 by caredua3          #+#    #+#             */
-/*   Updated: 2024/01/24 17:00:07 by caredua3         ###   ########.fr       */
+/*   Updated: 2024/01/29 16:34:03 by caredua3         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,24 +19,22 @@
 # define WIDTH 256
 # define HEIGHT 256
 
-struct s_matrix_validation
+typedef struct s_game_validation
 {
-	int		starting_position_x;
-	int		starting_position_y;
-	int		quantity_initial_position;
-	int		quantity_end_position;
-	int		number_of_collectibles;
+	int		start_pos_x;
+	int		start_pos_y;
+	int		quant_init_pos;
+	int		quant_end_pos;
+	int		num_of_collect;
 	int		columns;
 	int		lines;
 	char	**data;
-};
+}			t_game;
 
-void	start_matrix_validation(char *map,
-			struct s_matrix_validation *matrix_validation);
-void	validate_game(struct s_matrix_validation *matrix_validation);
+void	start_matrix_validation(char *map, t_game *matrix);
+void	validate_game(t_game *game_validation);
 void	message_sucess_or_error(char *message, int fd);
 int		init_map(void);
-void	clean_matrix(struct s_matrix_validation *matrix_validation,
-			char *message_error_memory, int size);
+void	clean_matrix(t_game *game_validation, char *message_error_memory, int size);
 
 #endif
