@@ -6,7 +6,7 @@
 /*   By: caredua3 <caredua3@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 18:44:47 by caredua3          #+#    #+#             */
-/*   Updated: 2024/01/29 18:47:48 by caredua3         ###   ########.fr       */
+/*   Updated: 2024/01/30 18:47:59 by caredua3         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,25 +25,21 @@ static void	validate_arguments(int argc, char *argv)
 int	main(int argc, char *argv[])
 {
 	t_game	game;
-	int		i;
 
 	game.num_of_collect = 0;
 	game.quant_end_pos = 0;
 	game.quant_init_pos = 0;
 	game.columns = 0;
 	game.lines = 0;
+	game.image.mlx_ptr = NULL;
 	validate_arguments(argc, argv[1]);
 	start_matrix_validation(argv[1], &game);
 	validate_game(&game);
 	ft_flood_fill(&game, game.start_pos_x, game.start_pos_y);
 	if (game.num_of_collect != 0 && game.quant_end_pos != 0)
 		clean_matrix(&game, "impossible game", game.lines, 2);
-	i = 0;
-	while (i < game.lines)
-	{
-		ft_printf("%s", game.data[i]);
-		i++;
-	}
+	init_game(&game);
+	mlx_loop(game.image.mlx_ptr);
 	clean_matrix(&game, "Sucess game", game.lines, 1);
 	return (0);
 }

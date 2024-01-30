@@ -6,7 +6,7 @@
 /*   By: caredua3 <caredua3@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 11:06:23 by caredua3          #+#    #+#             */
-/*   Updated: 2024/01/29 18:50:15 by caredua3         ###   ########.fr       */
+/*   Updated: 2024/01/30 18:50:20 by caredua3         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,7 @@ void	clean_matrix(t_game *game, char *message_error_memory,
 	}
 	free(game->data);
 	free(game->data_fill);
+	if (game->image.mlx_ptr)
+		mlx_terminate(game->image.mlx_ptr);
 	message_sucess_or_error(message_error_memory, status);
 }
