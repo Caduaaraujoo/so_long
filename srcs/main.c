@@ -6,7 +6,7 @@
 /*   By: caredua3 <caredua3@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 18:44:47 by caredua3          #+#    #+#             */
-/*   Updated: 2024/01/30 18:47:59 by caredua3         ###   ########.fr       */
+/*   Updated: 2024/01/31 18:07:08 by caredua3         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ int	main(int argc, char *argv[])
 	if (game.num_of_collect != 0 && game.quant_end_pos != 0)
 		clean_matrix(&game, "impossible game", game.lines, 2);
 	init_game(&game);
+	printf("x : %d\n y : %d\n", game.start_pos_x, game.start_pos_y);
+	mlx_key_hook(game.image.mlx_ptr, (void *)hooks, &game);
 	mlx_loop(game.image.mlx_ptr);
 	clean_matrix(&game, "Sucess game", game.lines, 1);
 	return (0);

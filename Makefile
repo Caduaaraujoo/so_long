@@ -11,7 +11,7 @@ LIBS = ./libs
 HEADERS_PATH = ./includes
 HEADERS_FILES = so_long.h
 SRCS_FILES = main.c init_game.c start_matrix_validation.c message_sucess_or_error.c validate_game.c clean_matrix.c \
-ft_flood_fill.c
+ft_flood_fill.c hooks.c
 
 OBJS_PATH = ./objs
 INCLUDES = $(addprefix $(HEADERS_PATH)/, $(HEADERS_FILES))

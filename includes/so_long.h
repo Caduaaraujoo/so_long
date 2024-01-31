@@ -6,7 +6,7 @@
 /*   By: caredua3 <caredua3@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 18:21:27 by caredua3          #+#    #+#             */
-/*   Updated: 2024/01/30 19:07:32 by caredua3         ###   ########.fr       */
+/*   Updated: 2024/01/31 18:16:04 by caredua3         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,5 +56,7 @@ void		init_game(t_game *game);
 void		clean_matrix(t_game *game, char *message_error_memory,
 				int size, int status);
 void		ft_flood_fill(t_game *matrix, int x, int y);
+void		hooks(mlx_key_data_t keydata, t_game *game);
+void		fill_window_image(t_game *game, char c, int x, int y);
 
 #endif

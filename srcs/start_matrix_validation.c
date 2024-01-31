@@ -6,7 +6,7 @@
 /*   By: caredua3 <caredua3@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 11:25:40 by caredua3          #+#    #+#             */
-/*   Updated: 2024/01/29 18:51:46 by caredua3         ###   ########.fr       */
+/*   Updated: 2024/01/31 15:26:38 by caredua3         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,6 @@ static void	check_size_columns_and_lines(char *map, t_game *game)
 
 static void	matrix_memory_allocation(t_game *game)
 {
-	int	index;
-
-	index = 0;
 	game->data = (char **)ft_calloc(game->lines,
 			sizeof(char *));
 	game->data_fill = (char **)ft_calloc(game->lines,

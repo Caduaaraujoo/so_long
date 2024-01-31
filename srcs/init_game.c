@@ -6,13 +6,13 @@
 /*   By: caredua3 <caredua3@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 13:30:23 by caredua3          #+#    #+#             */
-/*   Updated: 2024/01/30 19:07:11 by caredua3         ###   ########.fr       */
+/*   Updated: 2024/01/31 19:15:30 by caredua3         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-static void	fill_window_image(t_game *game, char c, int x, int y)
+void	fill_window_image(t_game *game, char c, int x, int y)
 {
 	if (c == '1')
 		mlx_image_to_window(game->image.mlx_ptr, game->image.wall.img, x, y);
@@ -37,8 +37,9 @@ static void	fill_window(t_game *game)
 		j = 0;
 		while (game->data[i][j])
 		{
-			mlx_image_to_window(game->image.mlx_ptr, game->image.floor.img,
-				j * 64, i * 64);
+			if (game->data[i][j] != '0')
+				mlx_image_to_window(game->image.mlx_ptr, game->image.floor.img,
+					j * 64, i * 64);
 			fill_window_image(game, game->data[i][j], j * 64, i * 64);
 			j++;
 		}

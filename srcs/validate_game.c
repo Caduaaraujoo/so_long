@@ -6,7 +6,7 @@
 /*   By: caredua3 <caredua3@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 13:53:24 by caredua3          #+#    #+#             */
-/*   Updated: 2024/01/29 18:52:17 by caredua3         ###   ########.fr       */
+/*   Updated: 2024/01/31 15:28:13 by caredua3         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ static void	map_wall_is_valid(t_game *game)
 	}
 }
 
-void static	character_verification(t_game *game)
+static void	character_verification(t_game *game)
 {
 	int	index;
 	int	j;
