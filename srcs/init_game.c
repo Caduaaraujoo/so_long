@@ -6,7 +6,7 @@
 /*   By: caredua3 <caredua3@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 13:30:23 by caredua3          #+#    #+#             */
-/*   Updated: 2024/01/31 19:15:30 by caredua3         ###   ########.fr       */
+/*   Updated: 2024/02/01 19:01:02 by caredua3         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,12 @@
 void	fill_window_image(t_game *game, char c, int x, int y)
 {
 	if (c == '1')
+	{
 		mlx_image_to_window(game->image.mlx_ptr, game->image.wall.img, x, y);
-	else if (c == 'P')
-		mlx_image_to_window(game->image.mlx_ptr, game->image.player.img, x, y);
+		game->num_of_wall++;
+	}
 	else if (c == 'C')
 		mlx_image_to_window(game->image.mlx_ptr, game->image.collect.img, x, y);
-	else if (c == '0')
-		mlx_image_to_window(game->image.mlx_ptr, game->image.floor.img, x, y);
 	else if (c == 'E')
 		mlx_image_to_window(game->image.mlx_ptr, game->image.exit.img, x, y);
 }
@@ -37,9 +36,6 @@ static void	fill_window(t_game *game)
 		j = 0;
 		while (game->data[i][j])
 		{
-			if (game->data[i][j] != '0')
-				mlx_image_to_window(game->image.mlx_ptr, game->image.floor.img,
-					j * 64, i * 64);
 			fill_window_image(game, game->data[i][j], j * 64, i * 64);
 			j++;
 		}
@@ -83,5 +79,10 @@ void	init_game(t_game *game)
 	if (!game->image.mlx_ptr)
 		clean_matrix(game, "Error mlx_init", game->lines, 2);
 	init_images(game);
+	mlx_image_to_window(game->image.mlx_ptr, game->image.floor.img, 64, 64);
+	mlx_resize_image(game->image.floor.img, game->columns
+		* 64, game->lines * 64);
 	fill_window(game);
+	mlx_image_to_window(game->image.mlx_ptr, game->image.player.img,
+		game->start_pos_y * 64, game->start_pos_x * 64);
 }

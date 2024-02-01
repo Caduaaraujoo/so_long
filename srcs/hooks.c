@@ -6,78 +6,83 @@
 /*   By: caredua3 <caredua3@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 15:30:33 by caredua3          #+#    #+#             */
-/*   Updated: 2024/01/31 19:36:52 by caredua3         ###   ########.fr       */
+/*   Updated: 2024/02/01 19:03:55 by caredua3         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-static void	move_x_up(t_game *game, int x, int y)
+void	check_is_collectable(t_game *game, int x, int y)
 {
-	if (game->data[x - 1][y] != '1')
+	int	i;
+
+	i = 0;
+	while (i < game->num_size_collect)
 	{
-		if (game->data[x - 1][y] == '0')
+		if (game->image.collect.img->instances[i].x == x
+			&& game->image.collect.img->instances[i].y == y)
 		{
-			game->start_pos_x = x - 1;
-			game->image.player.img->instances->y -= 64;
+				game->image.collect.img->instances[i].enabled = false;
+				game->image.collect.img->instances[i].x = -42;
+				game->image.collect.img->instances[i].y = -42;
+				game->num_collect--;
 		}
+		i++;
 	}
 }
 
-static void	move_x_down(t_game *game, int x, int y)
+static int	check_is_wall(t_game *game, int x, int y)
 {
-	if (game->data[x + 1][y] != '1')
+	int	i;
+
+	i = 0;
+	while (i < game->num_of_wall)
 	{
-		if (game->data[x + 1][y] == '0')
-		{
-			game->start_pos_x = x + 1;
-			game->image.player.img->instances->y += 64;
-		}
-		else if (game->data[x + 1][y] == 'C')
-		{
-			game->image.collect.img->instances[y].enabled = false;
-			game->start_pos_x = x + 1;
-			game->image.player.img->instances->y += 64;
-		}
+		if (game->image.wall.img->instances[i].x == x
+			&& game->image.wall.img->instances[i].y == y)
+			return (0);
+		i++;
 	}
-}
-static void	move_y_left(t_game *game, int x, int y)
-{
-	if (game->data[x][y - 1] != '1')
-	{
-		if (game->data[x][y - 1] == '0')
-		{
-			game->start_pos_y = y - 1;
-			game->image.player.img->instances->x -= 64;
-		}
-	}
+	return (1);
 }
 
-static void	move_y_rigth(t_game *game, int x, int y)
+static void	chack_is_finish(t_game *game, int x, int y)
 {
-	if (game->data[x][y + 1] != '1')
+	if (game->image.exit.img->instances[0].x == x
+		&& game->image.exit.img->instances[0].y == y && game->num_collect == 0)
+		clean_matrix(game, "jogo finalizado", game->lines, 1);
+}
+
+static void	player_movement(t_game *game, int x, int y)
+{
+	if (check_is_wall(game, x, y))
 	{
-		if (game->data[x][y + 1] == '0')
-		{
-			game->start_pos_y = y + 1;
-			game->image.player.img->instances->x += 64;
-		}
+		ft_printf("%d\n", game->steps++);
+		game->image.player.img->instances[0].x = x;
+		game->image.player.img->instances[0].y = y;
 	}
+	check_is_collectable(game, x, y);
+	chack_is_finish(game, x, y);
 }
 
 void	hooks(mlx_key_data_t keydata, t_game *game)
 {
+	int		x;
+	int		y;
+
+	y = game->image.player.img->instances[0].y;
+	x = game->image.player.img->instances[0].x;
 	if (keydata.key == MLX_KEY_ESCAPE)
 	{
 		mlx_close_window(game->image.mlx_ptr);
-		clean_matrix(game, "jogo fechado\n" ,game->lines, 1);
+		clean_matrix(game, "jogo fechado\n", game->lines, 1);
 	}
 	else if ((keydata.key == MLX_KEY_W) && keydata.action == MLX_PRESS)
-		move_x_up(game, game->start_pos_x, game->start_pos_y);
+		player_movement(game, x, y - 64);
 	else if ((keydata.key == MLX_KEY_S) && keydata.action == MLX_PRESS)
-		move_x_down(game, game->start_pos_x, game->start_pos_y);
+		player_movement(game, x, y + 64);
 	else if ((keydata.key == MLX_KEY_A) && keydata.action == MLX_PRESS)
-		move_y_left(game, game->start_pos_x, game->start_pos_y);
+		player_movement(game, x - 64, y);
 	else if ((keydata.key == MLX_KEY_D) && keydata.action == MLX_PRESS)
-		move_y_rigth(game, game->start_pos_x, game->start_pos_y);
+		player_movement(game, x + 64, y);
 }

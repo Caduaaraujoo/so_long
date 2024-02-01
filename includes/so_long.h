@@ -6,7 +6,7 @@
 /*   By: caredua3 <caredua3@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 18:21:27 by caredua3          #+#    #+#             */
-/*   Updated: 2024/01/31 18:16:04 by caredua3         ###   ########.fr       */
+/*   Updated: 2024/02/01 18:49:14 by caredua3         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,14 @@ typedef struct s_game_validation
 	int		quant_init_pos;
 	int		quant_end_pos;
 	int		num_of_collect;
+	int		num_size_collect;
+	int		num_collect;
+	int		num_of_wall;
+	int		finish_x;
+	int		finish_y;
 	int		columns;
 	int		lines;
+	int		steps;
 	char	**data;
 	char	**data_fill;
 	t_image	image;
