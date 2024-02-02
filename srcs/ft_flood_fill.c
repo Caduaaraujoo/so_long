@@ -6,7 +6,7 @@
 /*   By: caredua3 <caredua3@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 18:13:29 by caredua3          #+#    #+#             */
-/*   Updated: 2024/02/01 15:56:45 by caredua3         ###   ########.fr       */
+/*   Updated: 2024/02/02 19:30:44 by caredua3         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	ft_flood_fill(t_game *matrix, int x, int y)
 	if (matrix->data_fill[x][y] == '1' || matrix->data_fill[x][y] == 'V')
 		return ;
 	else if (matrix->data_fill[x][y] == 'C')
-		matrix->num_of_collect--;
+		matrix->num_of_collect_fill--;
 	else if (matrix->data_fill[x][y] == 'E')
 		matrix->quant_end_pos--;
 	matrix->data_fill[x][y] = 'V';

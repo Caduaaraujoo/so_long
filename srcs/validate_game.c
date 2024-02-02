@@ -6,7 +6,7 @@
 /*   By: caredua3 <caredua3@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 13:53:24 by caredua3          #+#    #+#             */
-/*   Updated: 2024/02/01 19:01:26 by caredua3         ###   ########.fr       */
+/*   Updated: 2024/02/02 19:37:57 by caredua3         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ static void	character_verification(t_game *game)
 			if (game->data[index][j] == 'E')
 				game->quant_end_pos++;
 			if (game->data[index][j] == 'C')
-				game->num_of_collect++;
+				game->num_of_collect_fill++;
 			j++;
 		}
 		index++;
@@ -114,9 +114,11 @@ void	validate_game(t_game *game)
 	if (game->quant_end_pos != 1)
 		clean_matrix(game, "incorrect final position",
 			game->lines, 2);
-	if (game->num_of_collect == 0)
+	if (game->num_of_collect_fill == 0)
 		clean_matrix(game, "no collectibles in the game",
 			game->lines, 2);
 	map_is_rectangular(game);
 	map_wall_is_valid(game);
+	game->num_of_collect = game->num_of_collect_fill;
+	game->num_collect = game->num_of_collect_fill;
 }

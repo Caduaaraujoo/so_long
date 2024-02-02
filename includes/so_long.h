@@ -6,7 +6,7 @@
 /*   By: caredua3 <caredua3@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 18:21:27 by caredua3          #+#    #+#             */
-/*   Updated: 2024/02/01 18:49:14 by caredua3         ###   ########.fr       */
+/*   Updated: 2024/02/02 19:33:15 by caredua3         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,23 +16,20 @@
 # include "libft.h"
 # include <stdio.h>
 
-typedef struct s_draw
+typedef struct s_set_image
 {
 	mlx_image_t		*img;
 	mlx_texture_t	*texture;
-	int				x;
-	int				y;
-}					t_draw;
+}					t_set_image;
 
 typedef struct s_images_game
 {
 	mlx_t			*mlx_ptr;
-	void			*win_ptr;
-	t_draw			floor;
-	t_draw			wall;
-	t_draw			player;
-	t_draw			exit;
-	t_draw			collect;
+	t_set_image		floor;
+	t_set_image		wall;
+	t_set_image		player;
+	t_set_image		exit;
+	t_set_image		collect;
 }				t_image;
 
 typedef struct s_game_validation
@@ -41,12 +38,10 @@ typedef struct s_game_validation
 	int		start_pos_y;
 	int		quant_init_pos;
 	int		quant_end_pos;
+	int		num_of_collect_fill;
 	int		num_of_collect;
-	int		num_size_collect;
 	int		num_collect;
 	int		num_of_wall;
-	int		finish_x;
-	int		finish_y;
 	int		columns;
 	int		lines;
 	int		steps;

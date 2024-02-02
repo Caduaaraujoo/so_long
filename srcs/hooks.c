@@ -6,7 +6,7 @@
 /*   By: caredua3 <caredua3@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 15:30:33 by caredua3          #+#    #+#             */
-/*   Updated: 2024/02/01 19:03:55 by caredua3         ###   ########.fr       */
+/*   Updated: 2024/02/02 19:34:04 by caredua3         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	check_is_collectable(t_game *game, int x, int y)
 	int	i;
 
 	i = 0;
-	while (i < game->num_size_collect)
+	while (i < game->num_of_collect)
 	{
 		if (game->image.collect.img->instances[i].x == x
 			&& game->image.collect.img->instances[i].y == y)
