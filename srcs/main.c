@@ -6,7 +6,7 @@
 /*   By: caredua3 <caredua3@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 18:44:47 by caredua3          #+#    #+#             */
-/*   Updated: 2024/02/02 19:37:39 by caredua3         ###   ########.fr       */
+/*   Updated: 2024/02/03 13:01:56 by caredua3         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void	validate_arguments(int argc, char *argv)
 		message_sucess_or_error("The map does not have a .ber extension", 2);
 }
 
-static void set_game(t_game *game)
+static void	set_game(t_game *game)
 {
 	game->num_of_collect_fill = 0;
 	game->quant_end_pos = 0;
